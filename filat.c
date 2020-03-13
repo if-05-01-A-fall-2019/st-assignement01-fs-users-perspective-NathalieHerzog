@@ -8,21 +8,21 @@ const char* getType(struct stat attributes);
 
 const char* getType(struct stat attributes){
   if (attributes.st_mode & S_IFLNK) {
-    return 'link\n';
+    return "link\n";
   }
   else if (attributes.st_mode & S_IFDIR) {
-    return 'dir\n';
+    return "dir\n";
   }
   else if (attributes.st_mode & S_IFBLK) {
-  return 'block\n';
+  return "block\n";
   }
   else if (attributes.st_mode & S_IFSOCK) {
-    return 'socket\n';
+    return "socket\n";
   }
   else if (attributes.st_mode & S_IFIFO) {
-    return 'fifo\n';
+    return "fifo\n";
   }
-  return 'not found';
+  return "not found";
 }
 
 int main(int argc, char const *argv[]) {
@@ -42,17 +42,15 @@ int main(int argc, char const *argv[]) {
     printf( (attributes.st_mode & S_IWOTH) ? "w" : "-");
     printf( (attributes.st_mode & S_IXOTH) ? "x" : "-");
     printf("\n");
-    printf("File Type         | %d\n", getType(attributes));
-    printf("Access privileges | %hu\n", attributes.st_mode); 
-    printf("inode-Number      | %llu\n", attributes.st_ino); 
-    printf("Device numbers    | %d\n", attributes.st_dev);
-    printf("Links count       | %hu\n", attributes.st_nlink); 
-    printf("UID               | %u\n", attributes.st_uid);
-    printf("GID               | %u\n", attributes.st_gid);
-    printf("File size         | %lld\n", attributes.st_size); 
-    printf("Last access       | %ld\n", attributes.st_atime); 
-    printf("Last modification | %ld\n", attributes.st_mtime);
-    printf("Last inode change | %ld\n", attributes.st_ctime);
+     printf("inode-Number             : %ld\n",(long) attributes.st_ino);
+    printf("Device Numbers           : %ld\n", attributes.st_dev);
+    printf("Link count               : %ld\n",(long) attributes.st_nlink);
+    printf("UID                      : %ld\n",(long) attributes.st_uid);
+    printf("GID                      : %ld\n",(long) attributes.st_gid);
+    printf("File size                : %lld\n",(long long) attributes.st_size);
+    printf("Last access              : %s",ctime(&attributes.st_atime));
+    printf("Last modification        : %s",ctime(&attributes.st_mtime));
+    printf("Last inode change        : %s",ctime(&attributes.st_ctime));
 
     return 0;
 }
