@@ -2,6 +2,7 @@
 #include <fcntl.h> 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #define CONST 256
 
@@ -17,7 +18,7 @@ int main (int argc, char const * argv[]){
 	int cpy;
 	
 	src = open(argv[1], O_RDONLY);
-	cpy = open(argv[2], O_CREAT | O_WRONLY, COPYMODE);
+	cpy = open(argv[2], O_CREAT | O_WRONLY, CONST);
 
 	int num;
 	char buffer[CONST];
